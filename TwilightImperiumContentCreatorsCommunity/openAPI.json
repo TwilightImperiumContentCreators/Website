@@ -1,0 +1,249 @@
+﻿{
+  "x-generator": "NSwag v13.1.3.0 (NJsonSchema v10.0.27.0 (Newtonsoft.Json v11.0.0.0))",
+  "openapi": "3.0.0",
+  "info": {
+    "title": "My Title",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:51745"
+    }
+  ],
+  "paths": {
+    "/api/Maps/Players/{playerCount}": {
+      "get": {
+        "tags": [
+          "Maps"
+        ],
+        "operationId": "Maps_GetMapsByPlayerCount",
+        "parameters": [
+          {
+            "name": "playerCount",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Maps/{shortName}": {
+      "get": {
+        "tags": [
+          "Maps"
+        ],
+        "operationId": "Maps_GetMapByShortName",
+        "parameters": [
+          {
+            "name": "shortName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Maps": {
+      "post": {
+        "tags": [
+          "Maps"
+        ],
+        "operationId": "Maps_CreateMap",
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 2
+          }
+        ],
+        "requestBody": {
+          "x-name": "requestBody",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMapRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreateMapRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "map": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/GalleryMap"
+              }
+            ]
+          }
+        }
+      },
+      "GalleryMap": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "mapString": {
+            "$ref": "#/components/schemas/MapString"
+          },
+          "shortName": {
+            "$ref": "#/components/schemas/MapShortName"
+          },
+          "description": {
+            "$ref": "#/components/schemas/MapDescription"
+          },
+          "players": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "mapQuality": {
+            "$ref": "#/components/schemas/MapQuality"
+          },
+          "category": {
+            "type": "string",
+            "nullable": true
+          },
+          "owner": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Owner"
+              }
+            ]
+          }
+        }
+      },
+      "MapString": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "MapShortName": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "MapDescription": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "MapQuality": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Community",
+          "Curated",
+          "Official"
+        ],
+        "enum": [
+          0,
+          1,
+          2
+        ]
+      },
+      "Owner": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ownerName": {
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "identityProvider": {
+            "type": "string",
+            "nullable": true
+          },
+          "emailAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "publicOwner": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}
